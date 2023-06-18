@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 import logging
 
-logging.basicConfig(level=logging.INFO,format='[%(asctime)s]:%(message)s')
+logging.basicConfig(level=logging.INFO,format='[%(asctime)s]: %(message)s:')
 
 projectName="signLanguage"
 
@@ -38,16 +38,18 @@ list_of_files=[
 ]
 
 for filepath in list_of_files:
-    filepath=Path()
+    filepath=Path(filepath)
+    logging.info(f"{filepath}")
 
     file_dir,file_name=os.path.split(filepath)
+    logging.info(f"{file_dir}")
 
-    if file_dir!=" ":
-        os.makedirs(file_dir,exist_ok=True)
+    if file_dir!="":
+        os.makedirs(name=file_dir,exist_ok=True)
         logging.info(f"Creating directory {file_dir} for {file_name}")
 
-    if (not os.path.exists(file_name) or os.path.getsize()==0):
-        with open(filepath,"r") as f:
+    if (not os.path.exists(file_name)) or (os.path.getsize()==0):
+        with open(filepath,"w") as f:
             pass
         logging.info(f"Creating empty file : {file_name}")
 
